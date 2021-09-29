@@ -183,6 +183,7 @@ def apply_parallel(
         chunks.insert(channel_axis, array.shape[channel_axis])
         chunks = tuple(chunks)
 
+<<<<<<< HEAD:src/_skimage2/util/apply_parallel.py
     boundary = mode
     if mode == 'symmetric':
         boundary = 'reflect'
@@ -190,6 +191,12 @@ def apply_parallel(
         boundary = 'periodic'
     elif mode == 'edge':
         boundary = 'nearest'
+=======
+    if mode in ['wrap', 'periodic']:
+        boundary = 'periodic'
+    else:
+        boundary = 'none'
+>>>>>>> a4092b5a4 (Fix mode handling in apply_parallel):skimage/util/apply_parallel.py
 
     if channel_axis is not None:
         if numpy.isscalar(depth):
