@@ -181,6 +181,7 @@ def apply_parallel(
         chunks.insert(channel_axis, array.shape[channel_axis])
         chunks = tuple(chunks)
 
+<<<<<<< HEAD
     if mode == 'wrap':
         mode = 'periodic'
     elif mode == 'symmetric':
@@ -189,6 +190,12 @@ def apply_parallel(
         mode = 'nearest'
     elif mode is None:
         mode = 'reflect'  # default value for dask < 2022.03
+=======
+    if mode in ['wrap', 'periodic']:
+        boundary = 'periodic'
+    else:
+        boundary = 'none'
+>>>>>>> dba08da56 (Fix default mode)
 
     if channel_axis is not None:
         if numpy.isscalar(depth):
