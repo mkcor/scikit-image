@@ -133,7 +133,11 @@ def apply_parallel(
     -----
     NumPy boundary modes 'symmetric', 'wrap', and 'edge' are converted to the
     equivalent Dask boundary modes 'reflect', 'periodic', and 'nearest',
+<<<<<<< HEAD
     respectively. Pass 'none' (as a string) to ensure no padding is applied.
+=======
+    respectively ('none' is equivalent to None).
+>>>>>>> ce307a26e (Support all boundary modes supported by Dask)
     Setting ``compute=False`` can be useful for chaining later operations.
     For example region selection to preview a result or storing large data
     to disk instead of loading in memory.
@@ -193,6 +197,10 @@ def apply_parallel(
 =======
     if mode in ['wrap', 'periodic']:
         boundary = 'periodic'
+    elif mode in ['edge', 'nearest']:
+        boundary = 'nearest'
+    elif mode in ['symmetric', 'reflect']:
+        boundary = 'reflect'
     else:
         boundary = 'none'
 >>>>>>> dba08da56 (Fix default mode)
