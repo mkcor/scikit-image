@@ -147,11 +147,7 @@ def apply_parallel(
         import dask.array as da
     except ImportError:
         raise RuntimeError(
-<<<<<<< HEAD
             "Could not import 'dask'. Please install using 'pip install dask'"
-=======
-            "Could not import 'dask'.  Please install " "using 'pip install dask'"
->>>>>>> 31305df76 (Port apply_parallel to skimage2)
         )
 
     if extra_keywords is None:
@@ -187,7 +183,6 @@ def apply_parallel(
         chunks.insert(channel_axis, array.shape[channel_axis])
         chunks = tuple(chunks)
 
-<<<<<<< HEAD
     boundary = mode
     if mode == 'symmetric':
         boundary = 'reflect'
@@ -195,20 +190,6 @@ def apply_parallel(
         boundary = 'periodic'
     elif mode == 'edge':
         boundary = 'nearest'
-=======
-    if mode is not None:
-        if mode in ['wrap', 'periodic']:
-            mode = 'periodic'
-        elif mode in ['edge', 'nearest']:
-            mode = 'nearest'
-        elif mode in ['symmetric', 'reflect']:
-            mode = 'reflect'
-        else:
-            if isinstance(mode, str):
-                raise ValueError("This 'mode' value is not supported.")
-            else:
-                raise TypeError("Please pass 'mode' as a string.")
->>>>>>> 31305df76 (Port apply_parallel to skimage2)
 
     if channel_axis is not None:
         if numpy.isscalar(depth):
@@ -224,11 +205,7 @@ def apply_parallel(
 
     darr = _ensure_dask_array(array, chunks=chunks)
 
-<<<<<<< HEAD
     res = darr.map_overlap(wrapped_func, depth, boundary=boundary, dtype=dtype)
-=======
-    res = darr.map_overlap(wrapped_func, depth, boundary=mode, dtype=dtype)
->>>>>>> 31305df76 (Port apply_parallel to skimage2)
     if compute:
         res = res.compute()
 
