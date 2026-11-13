@@ -99,6 +99,7 @@ def apply_parallel(
         0 will be used along the channel axis.
     mode : str or tuple or dict or list, optional
         The type of external boundary padding, if any (none by default).
+        We follow `scipy.ndimage`'s convention for handling boundary padding.
         Possible boundary modes are currently those supported by
         :func:`dask.array.overlap.map_overlap` (see also *Notes* below).
     extra_arguments : tuple, optional
@@ -133,7 +134,7 @@ def apply_parallel(
 
     Notes
     -----
-    NumPy boundary modes 'symmetric', 'wrap', and 'edge' are converted to the
+    `scipy.ndimage` boundary modes 'reflect', 'wrap', and 'nearest' are converted to the
     equivalent Dask boundary modes 'reflect', 'periodic', and 'nearest',
     respectively.
     Setting ``compute=False`` can be useful for chaining later operations.
@@ -184,11 +185,11 @@ def apply_parallel(
         chunks = tuple(chunks)
 
     boundary = mode
-    if mode == 'symmetric':
+    if mode == 'reflect':
         boundary = 'reflect'
     elif mode == 'wrap':
         boundary = 'periodic'
-    elif mode == 'edge':
+    elif mode == 'nearest':
         boundary = 'nearest'
 
     if channel_axis is not None:
